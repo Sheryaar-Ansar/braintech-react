@@ -12,9 +12,12 @@ import Contact from './app/pages/Contact'
 import Footer from './app/components/footer/Footer'
 import { AuthContext } from './app/context/AuthContext'
 import ProtectedRoute from './app/PrivateRoute/ProtectedRoute'
+import Login from './app/pages/Login'
+import Dashboard from './app/pages/Dashboard'
 
 function App() {
   const mode = useSelector((state) => state.mode.mode)
+  const {isAuthenticated} = useSelector((state) => state.login)
   return (
     <div className={`${mode ? 'transition-all duration-500 bg-black text-white' : 'transition-all duration-500 bg-white text-black'}`}>
       <Toaster
@@ -22,7 +25,8 @@ function App() {
         reverseOrder={false}
       />
       <Navbar />
-      <AuthContext>
+      {!isAuthenticated ? 
+        <AuthContext>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/shop' element={<Shop />} />
@@ -33,8 +37,13 @@ function App() {
             {<ProtectedRoute>
               <OrderPlacement />
             </ProtectedRoute>} />
+            <Route path='/hasnainweb' element={<Login />} />
         </Routes>
       </AuthContext>
+      :
+          <Dashboard/>
+      }
+      
       <Footer />
     </div>
   )
