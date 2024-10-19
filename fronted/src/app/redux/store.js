@@ -7,6 +7,7 @@ import paginationReducer from "./features/paginationSlices";
 import priceReducer from "./features/priceSlices";
 import orderReducer from "./features/orderSlices";
 import loginReducer  from "./features/loginSlices";
+import productsReducer  from "./features/productsSlices";
 
 
 export const store = configureStore({
@@ -19,5 +20,6 @@ export const store = configureStore({
         price: priceReducer,
         order: orderReducer,
         login: loginReducer,
+        products: productsReducer,
     },
 })

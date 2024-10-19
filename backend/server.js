@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -55,6 +54,30 @@ app.post('/api/items', upload.single('image'), async (req, res) => {
 app.get('/api/items', async (req, res) => {
     const items = await Item.find();
     res.json(items);
+});
+
+// DELETE request to remove a specific item by ID
+app.delete('/api/items/:id', async (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const deletedItem = await Item.findByIdAndDelete(itemId); // Find item by ID and delete it
+        if (!deletedItem) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+        res.json({ message: 'Item deleted successfully', item: deletedItem });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting item', error });
+    }
+});
+
+// DELETE request to remove all items
+app.delete('/api/items', async (req, res) => {
+    try {
+        await Item.deleteMany({}); // Remove all items from the collection
+        res.json({ message: 'All items deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting items', error });
+    }
 });
 
 app.listen(5000, () => {
