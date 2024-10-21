@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMinRange } from '../../redux/features/priceSlices'
+import { loadProducts } from '../../redux/features/productsSlices'
 
 const PriceRange = () => {
     const [expand, setExpand] = useState(false)
@@ -17,6 +18,9 @@ const PriceRange = () => {
     const handleMinRange = (e) => {
         dispatch(setMinRange(Number(e.target.value)));
     }
+    useEffect(() => {
+      dispatch(loadProducts());
+  }, [dispatch]);
   return (
     <div>
       <div className={`px-8 `}>
@@ -24,7 +28,7 @@ const PriceRange = () => {
           <hr className={`${expand ? 'hidden' : 'flex'} mt-3`} />
           <div className={`${expand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-hidden transition-all duration-300`}>
             <div className='mt-6'>
-              <input type="range" min={'0'} max={maxPrice} value={minPrice} onChange={handleMinRange} className='w-full accent-green-600'/>
+              <input type="range" min={'0'} max={maxPrice} value={minPrice} onChange={handleMinRange} className='w-full accent-blue-600'/>
             </div>
             <div className='flex justify-between'>
                 <label>{updatedMinPrice} -/PKR</label>

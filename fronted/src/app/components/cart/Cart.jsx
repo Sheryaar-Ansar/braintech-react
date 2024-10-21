@@ -53,7 +53,7 @@ const Cart = () => {
                                 <h1 className='text-xl font-semibold'>Total Amount: <span className='text-[#767676] text-[16px]'>{total} -/PKR</span></h1>
                             </div>
                             <hr className={`my-1 h-1 w-full ${mode ? 'bg-gray-800' : 'bg-gray-300'} border-0`} />
-                            <button onClick={handleCheckout} className='mt-4 w-full text-xl font-normal h-9 bg-green-500 rounded-md cursor-pointer hover:shadow-green-700 hover:shadow-md transition-shadow duration-200'>Checkout</button>
+                            <button onClick={handleCheckout} className='mt-4 w-full text-xl font-normal h-9 bg-blue-400 rounded-md cursor-pointer hover:shadow-blue-700 hover:shadow-md transition-shadow duration-200'>Checkout</button>
                         </div>
                     </div>
                 )}

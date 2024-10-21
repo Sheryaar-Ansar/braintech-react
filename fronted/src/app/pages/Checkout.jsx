@@ -84,7 +84,7 @@ const Checkout = () => {
                 {cartItems.length === 0 ? (
                     <div className={`flex justify-center items-center flex-col ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}><GiShoppingCart className='text-2xl' />
                         <h1>Your Cart Is Empty</h1>
-                        <button onClick={() => navigate('/shop')} className='w-[250px] h-[45px] bg-green-300 text-md uppercase mt-3 hover:border hover:border-green-300 hover:shadow-md hover:shadow-green-400 transition-all duration-300 ease-in-out'>Continue Shopping</button>
+                        <button onClick={() => navigate('/shop')} className='w-[250px] h-[45px] bg-blue-300 text-md uppercase mt-3 hover:border hover:border-blue-300 hover:shadow-md hover:shadow-blue-400 transition-all duration-300 ease-in-out'>Continue Shopping</button>
                     </div>
                 ) : (
                     <form onSubmit={handleSubmit} className='block md:flex justify-around w-full'>
@@ -128,7 +128,7 @@ const Checkout = () => {
                                                 <img src={item.img} className='w-[80px] h-[80px] rounded-full' />
                                                 <div className='ml-2'>
                                                     <h1 className='text-md md:text-lg'>{item.name}</h1>
-                                                    <p className='mt-1 text-sm text-green-400'>PKR {item.price.toLocaleString()} x {item.qty}</p>
+                                                    <p className='mt-1 text-sm text-blue-400'>PKR {item.price.toLocaleString()} x {item.qty}</p>
                                                 </div>
                                             </div>
                                             <hr className='my-3' />
@@ -137,7 +137,7 @@ const Checkout = () => {
                                 </div>
                                 <div>
                                     <p className='font-bold'>Total Price: <span className='font-normal'>{totalPrice.toLocaleString()} PKR</span></p>
-                                    <button type='submit' className='h-10 w-full bg-green-400 border rounded-lg my-3 hover:shadow-md hover:shadow-green-500 hover:border-green-400 transition-all duration-300 ease-out'>Place Order</button>
+                                    <button type='submit' className='h-10 w-full bg-blue-400 border rounded-lg my-3 hover:shadow-md hover:shadow-blue-500 hover:border-blue-400 transition-all duration-300 ease-out'>Place Order</button>
                                 </div>
                             </div>
                         </div>

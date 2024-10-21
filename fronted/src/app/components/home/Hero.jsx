@@ -46,7 +46,7 @@ const Hero = () => {
                                         {item.title3}
                                     </h1>
                                 </div>
-                                <button onClick={handleNavigate} className="mt-8 py-1 px-1 md:py-3 md:px-6 border border-green-400 rounded-md text-sm md:text-lg hover:bg-green-400 transition-all duration-300 ease-out z-10">
+                                <button onClick={handleNavigate} className="mt-8 py-1 px-1 md:py-3 md:px-6 border border-blue-400 rounded-md text-sm md:text-lg hover:bg-blue-400 transition-all duration-300 ease-out z-10">
                                     Shop By Category
                                 </button>
                             </div>

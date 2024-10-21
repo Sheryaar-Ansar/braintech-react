@@ -27,7 +27,7 @@ const OrderPlacement = () => {
     return (
       <div className={`mt-[70px] pt-[100px] flex justify-center items-center min-h-screen ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
         <div className="border px-6 py-10 rounded-lg shadow-md">
-          <h1 className="text-green-400 text-xl text-center font-semibold">Thank you for your order!</h1>
+          <h1 className="text-blue-400 text-xl text-center font-semibold">Thank you for your order!</h1>
           <p className="text-center mt-4">Your order has been processed successfully.</p>
         </div>
       </div>
@@ -36,8 +36,8 @@ const OrderPlacement = () => {
 
   return (
         <div className={`mt-[70px] pt-[100px] flex justify-center items-center min-h-screen ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
-          <div className={`border px-6 py-10 rounded-lg shadow-md ${mode && 'border-green-400 shadow-green-400'}`}>
-            <h1 className="text-green-400 text-xl text-center font-semibold">Your Order Has Been Submitted!</h1>
+          <div className={`border px-6 py-10 rounded-lg shadow-md ${mode && 'border-blue-400 shadow-blue-400'}`}>
+            <h1 className="text-blue-400 text-xl text-center font-semibold">Your Order Has Been Submitted!</h1>
             <hr className="py-4" />
             <div>
               <h1 className="text-lg font-semibold">Order Details</h1>

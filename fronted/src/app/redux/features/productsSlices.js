@@ -26,9 +26,27 @@ export const productsSlice = createSlice({
       state.products = state.products.filter((product) => product.id !== action.payload);
       localStorage.setItem('products', JSON.stringify(state.products)); // Update localStorage
     },
+    updateProduct: (state, action) => {
+      const { id, name, price, desc, category } = action.payload;
+      const productIndex = state.products.findIndex((product) => product.id === id);
+
+      // If product is found, update it
+      if (productIndex >= 0) {
+        state.products[productIndex] = {
+          ...state.products[productIndex],
+          name,
+          price,
+          desc,
+          category,
+        };
+      }
+
+      // Update localStorage
+      localStorage.setItem('products', JSON.stringify(state.products));
+    },
   },
 });
 
-export const { setProducts, loadProducts, addProduct, removeProduct } = productsSlice.actions;
+export const { setProducts, loadProducts, addProduct, removeProduct, updateProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

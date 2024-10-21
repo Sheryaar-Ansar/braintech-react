@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { data } from '../../data'
-import { useDispatch } from 'react-redux'
+// import { data } from '../../data'
+import { useDispatch, useSelector } from 'react-redux'
 import { setCategory } from '../../redux/features/categorySlices'
 import { IoIosArrowForward } from 'react-icons/io'
+import { loadProducts } from '../../redux/features/productsSlices'
 
 const CategoryList = () => {
   const [expand, setExpand] = useState(false);
   const [categories, setCategories] = useState([])
+  const products = useSelector((state)=>state.products.products)
   const dispatch = useDispatch()
 
   const handleExpand = () => {
     setExpand(!expand)
   }
   const listUniqueCategories = () => {
-    const uniqueCategory = [...new Set(data.map((item) => item.category))]
+    const uniqueCategory = [...new Set(products.map((item) => item.category))]
     setCategories(uniqueCategory)
 
   }
   useEffect(() => {
     listUniqueCategories()
   }, [])
+  useEffect(() => {
+    dispatch(loadProducts());
+}, [dispatch]);
   return (
     <div>
       <div className='px-3'>

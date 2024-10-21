@@ -70,7 +70,7 @@ const Contact = () => {
                 <div className='mt-3'>
                   <label htmlFor='feedback'>Feedback  <textarea name="feedback" id="feedback" onChange={onChange} value={formData.feedback} className={`block p-2 border w-full h-40 ${mode && 'bg-gray-700'}`} placeholder='Please write your feedback here' ></textarea>{errors.feedback && <span className='text-red-500'>{errors.feedback}</span>}</label>
                 </div>
-                <button type='submit' className={`w-full h-10 border rounded-sm border-green-300 mt-3 ${mode ? 'text-white' : 'text-black'} hover:bg-green-400 hover:shadow-md hover:shadow-green-400 hover:text-white hover:border hover:border-green-400 transition-all duration-300 ease-in`}>Submit</button>
+                <button type='submit' className={`w-full h-10 border rounded-sm border-blue-300 mt-3 ${mode ? 'text-white' : 'text-black'} hover:bg-blue-400 hover:shadow-md hover:shadow-blue-400 hover:text-white hover:border hover:border-blue-400 transition-all duration-300 ease-in`}>Submit</button>
               </form>
             </div>
           </div>

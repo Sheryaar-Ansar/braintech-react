@@ -11,7 +11,7 @@ const ItemListing = ({ img, name, price, id, handleToast }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const mode = useSelector((state) => state.mode.mode)
-
+  const priceStr = Number(price).toLocaleString()
   const handleViewDetail = () => {
     navigate(`/shop/${id}`)
   }
@@ -23,7 +23,7 @@ const ItemListing = ({ img, name, price, id, handleToast }) => {
   }
 
   return (
-    <div key={id} className={`w-[300px] h-[450px] group border ${mode ? 'border-green-400 shadow-md shadow-green-300 ' : 'bg-gray-300'} shadow-md rounded-lg`}>
+    <div key={id} className={`w-[300px] h-[450px] group border ${mode ? 'border-blue-400 shadow-md shadow-blue-300 ' : 'bg-gray-300'} shadow-md rounded-lg`}>
       <div className='max-w-[300px] max-h-[300px] relative overflow-y-hidden hover:opacity-50 transition-opacity duration-500'>
         <div className=''>
           <img src={img} alt={name} className='w-[300px] h-[300px] rounded-t-lg' />
@@ -39,7 +39,7 @@ const ItemListing = ({ img, name, price, id, handleToast }) => {
       <div className='w-full py-4 px-1'>
         <div className='w-full'>
           <h1 className='text-xl font-semibold'>{name}</h1>
-          <p className='flex justify-end pt-2 text-[#767676] text-[16px]'>{price} -/PKR</p>
+          <p className='flex justify-end pt-2 text-[#767676] text-[16px]'>{priceStr} -/PKR</p>
         </div>
       </div>
     </div>

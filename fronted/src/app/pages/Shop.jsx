@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ItemListing from '../components/shop/ItemListing';
-import { data } from '../data'
+// import { data } from '../data'
 import CategoryList from '../components/shop/CategoryList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentPage, setItemsPerPage, setNextPage } from '../redux/features/paginationSlices';
 import PriceRange from '../components/shop/PriceRange';
 import toast, { Toaster } from 'react-hot-toast';
 import SearchFilter from '../components/shop/SearchFilter';
+import { loadProducts } from '../redux/features/productsSlices';
 
 const Shop = () => {
     const nextPage = useRef(null)
     const mode = useSelector((state) => state.mode.mode)
+    const products = useSelector((state) => state.products.products);
     const category = useSelector((state) => state.category.category)
     const currentPage = useSelector((state) => state.pagination.currentPage);
     const itemsPerPage = useSelector((state) => state.pagination.itemsPerPage);
@@ -20,13 +22,13 @@ const Shop = () => {
     const [search, setSearch] = useState('')
 
 
-    const filteredData = data.filter((product) => {
+    const filteredData = products.filter((product) => {
         const isCategory = category === 'All' || product.category === category
         const isPriceRange = product.price.replace(/,/g, '') >= minPrice && product.price.replace(/,/g, '') <= maxPrice
         const isSearch = product.name.toLowerCase().includes(search.toLowerCase())
         return isCategory && isPriceRange && isSearch
     })
-
+    
     const idxOfFirstItem = (currentPage - 1) * itemsPerPage;
     const idxOfLastItem = currentPage * itemsPerPage;
     const totalPages = Math.ceil(filteredData.length / itemsPerPage)
@@ -37,7 +39,7 @@ const Shop = () => {
         const pages = [];
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
-                <button key={i} onClick={() => dispatch(setCurrentPage(i))} className={`h-4 w-4 md:h-6 md:w-6 ${currentPage === i && 'bg-green-400 shadow-sm shadow-green-500 border-green-400 border hover:border hover:border-green-500'} ml-2 md:ml-4 mt-5 p-2 md:p-4 text-md flex justify-center rounded-md items-center md:text-lg hover:border-gray-300 hover:border`}>
+                <button key={i} onClick={() => dispatch(setCurrentPage(i))} className={`h-4 w-4 md:h-6 md:w-6 ${currentPage === i && 'bg-blue-400 shadow-sm shadow-blue-500 border-blue-400 border hover:border hover:border-blue-500'} ml-2 md:ml-4 mt-5 p-2 md:p-4 text-md flex justify-center rounded-md items-center md:text-lg hover:border-gray-300 hover:border`}>
                     {i}
                 </button>
             )
@@ -54,6 +56,9 @@ const Shop = () => {
     useEffect(() => {
         dispatch(setCurrentPage(1))
     }, [category, dispatch, minPrice, maxPrice])
+    useEffect(() => {
+        dispatch(loadProducts());
+    }, [dispatch]);
 
     return (
         <div className={`${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
@@ -82,7 +87,7 @@ const Shop = () => {
                             <div className='flex justify-center items-center mt-10 w-full'>
                                 <div className='flex flex-row md:flex md:justify-between md:flex-row md:items-center md:w-[95%]'>
                                     <h1>Showing {ShowingItemsNo} Out of {filteredData.length} </h1>
-                                    <select onChange={handleItemsPerPage} className={`${!mode ? 'bg-green-300' : 'bg-green-500'} pr-4 rounded-md ml-6 md:ml-0`}>
+                                    <select onChange={handleItemsPerPage} className={`${!mode ? 'bg-green-300' : 'bg-blue-500'} pr-4 rounded-md ml-6 md:ml-0`}>
                                         <option value="9">9</option>
                                         <option value="18">18</option>
                                         <option value="27">27</option>

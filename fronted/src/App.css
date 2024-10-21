@@ -12,9 +12,9 @@
   padding-right: 10px;
   width: auto;
   height: 40px;
-  background: rgb(92, 201, 92);
+  background: #93c5fd;
   border-radius: 10px;
-  box-shadow: 0 0 10px green;
+  box-shadow: 0 0 10px #93c5fd;
   transition: 2s linear all ease-in-out;
   display: flex;
   justify-content: center;

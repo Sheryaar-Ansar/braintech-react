@@ -72,7 +72,7 @@ const SliderCard = ({title, productData}) => {
                                                 <h1 className='font-semibold mx-auto text-lg'>{item.name}</h1>
                                             </div>
                                             <div className='mt-3 flex relative'>
-                                                <h1 className='text-green-400'>{item.price} PKR</h1>
+                                                <h1 className='text-blue-400'>{item.price} PKR</h1>
                                                 <h1 className='absolute right-3 uppercase text-gray-700 font-mono font-semibold'>{item.category}</h1>
                                             </div>
                                         </div>
