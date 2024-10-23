@@ -12,7 +12,7 @@ const Hero = () => {
 
     const nextSlide = () => {
         setCurrentSlide((nextSlide) =>
-            nextSlide === HeroData.length - 1 ? 0 : prevSlide + 1
+            nextSlide === HeroData.length - 1 ? 0 : nextSlide + 1
         )
     }
 
