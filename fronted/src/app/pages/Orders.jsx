@@ -8,11 +8,13 @@ const Orders = () => {
   const orderDetails = useSelector((state) => state.summary.orderDetails)
   const [deliveryStatus, setDeliveryStatus] = useState('Processing')
   const dispatch = useDispatch()
+  
   return (
     <div className={`mt-10`}>
       <h1>Welcome to the Orders Page</h1>
       <div>
         <h1 className="text-2xl font-bold mb-5">Order Summary</h1>
+        {orderDetails === null ? <div className='text-3xl text-center uppercase font-mono'>No Orders Yet</div> : (
         <div className="mb-4 border">
           {orderDetails.length > 0 ? orderDetails.map((user, idx) => {
             // Calculate total price for this user's products
@@ -69,6 +71,8 @@ const Orders = () => {
             );
           }) : <h1 className='text-xl uppercase'>Order Cart Empty</h1>}
         </div>
+
+        )}
       </div>
     </div>
   )
