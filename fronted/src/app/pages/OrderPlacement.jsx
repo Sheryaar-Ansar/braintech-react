@@ -15,15 +15,15 @@ const OrderPlacement = () => {
 
   const clearInfo = () => {
     // Create order summary
-    const orderSummary = [
+    const orderSummary = 
       {
         buyerName: order[0]?.name,
         buyerEmail: order[0]?.email,
         buyerAddress: order[0]?.address,
         buyerCity: order[0]?.city,
         products: cartItems,
-      },
-  ]
+      }
+  
 
 // Save order summary to Redux
 dispatch(saveOrderSummary(orderSummary));

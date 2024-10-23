@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { LogoutPage } from '../redux/features/loginSlices'
 import Orders from './Orders';
 import AddItems from './AddItems';
@@ -7,6 +7,7 @@ import Items from './Items';
 
 const Dashboard = () => {
   const [activePage, setActivePage] = useState('additems');
+  const mode = useSelector((state)=>state.mode.mode)
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(LogoutPage())
@@ -23,9 +24,9 @@ const Dashboard = () => {
     }
   };
   return (
-    <div className='mt-[70px] pt-[50px] pb-[200px] bg-gray-200'>
+    <div className={`mt-[70px] pt-[50px] pb-[200px] bg-gray-200 ${mode && 'bg-gray-900'}`}>
       <div className='flex justify-between'>
-      <h1 className='text-xl font-bold uppercase text-blue-600 ml-5'>Welcome To the dashboard Hasnain!</h1>
+      <h1 className='text-xl font-bold uppercase text-blue-600 ml-10 '>Welcome To the dashboard Hasnain!</h1>
       <button onClick={handleLogout} className='w-[150px] h-[40px] bg-red-700 text-white'>Logout</button>
       </div>
       <div>
@@ -56,7 +57,7 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 bg-gray-100 p-6">
+      <div className={`flex-1 bg-gray-200 p-6 ${mode && 'bg-gray-700'}`}>
         {renderPage()}
       </div>
     </div>

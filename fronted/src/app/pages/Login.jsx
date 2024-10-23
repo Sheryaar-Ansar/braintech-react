@@ -32,7 +32,7 @@ const Login = () => {
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-md"
+                            className={`w-full px-3 py-2 border rounded-md ${mode && 'bg-gray-800'}`}
                             placeholder="Username"
                             required
                         />
@@ -43,7 +43,7 @@ const Login = () => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-md"
+                            className={`w-full px-3 py-2 border rounded-md ${mode && 'bg-gray-800'}`}
                             placeholder="Password"
                             required
                         />
