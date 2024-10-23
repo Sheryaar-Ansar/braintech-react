@@ -7,12 +7,11 @@ import { setCurrentPage, setItemsPerPage, setNextPage } from '../redux/features/
 import PriceRange from '../components/shop/PriceRange';
 import toast, { Toaster } from 'react-hot-toast';
 import SearchFilter from '../components/shop/SearchFilter';
-import { loadProducts } from '../redux/features/productsSlices';
 
 const Shop = () => {
+    const [products, setProducts] = useState([])
     const nextPage = useRef(null)
     const mode = useSelector((state) => state.mode.mode)
-    const products = useSelector((state) => state.products.products);
     const category = useSelector((state) => state.category.category)
     const currentPage = useSelector((state) => state.pagination.currentPage);
     const itemsPerPage = useSelector((state) => state.pagination.itemsPerPage);
@@ -24,7 +23,7 @@ const Shop = () => {
 
     const filteredData = products.filter((product) => {
         const isCategory = category === 'All' || product.category === category
-        const isPriceRange = product.price.replace(/,/g, '') >= minPrice && product.price.replace(/,/g, '') <= maxPrice
+        const isPriceRange = product.price >= minPrice && product.price <= maxPrice
         const isSearch = product.name.toLowerCase().includes(search.toLowerCase())
         return isCategory && isPriceRange && isSearch
     })
@@ -56,9 +55,20 @@ const Shop = () => {
     useEffect(() => {
         dispatch(setCurrentPage(1))
     }, [category, dispatch, minPrice, maxPrice])
+
     useEffect(() => {
-        dispatch(loadProducts());
-    }, [dispatch]);
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/items');
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     return (
         <div className={`${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
@@ -71,7 +81,7 @@ const Shop = () => {
                     {/* Category Section */}
                     <div className='hidden md:w-[25%] md:block'>
                         <div>
-                            <CategoryList />
+                            <CategoryList products={products}/>
                         </div>
                         <div className='mt-6'>
                             <PriceRange />
@@ -102,12 +112,12 @@ const Shop = () => {
                         </div>
                         <div className='flex justify-center items-center flex-wrap md:flex md:flex-wrap'>
                             {currentItems.map((product) => (
-                                <div className='m-3' key={product.id}>
+                                <div className='m-3' key={product._id}>
                                     <ItemListing
                                         img={product.images[0]}
                                         name={product.name}
                                         price={product.price}
-                                        id={product.id}
+                                        id={product._id}
                                         handleToast={handleToast}
                                     />
                                 </div>

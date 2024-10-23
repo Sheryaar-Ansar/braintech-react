@@ -8,6 +8,7 @@ import priceReducer from "./features/priceSlices";
 import orderReducer from "./features/orderSlices";
 import loginReducer  from "./features/loginSlices";
 import productsReducer  from "./features/productsSlices";
+import summaryReducer  from "./features/summarySlices";
 
 
 export const store = configureStore({
@@ -21,5 +22,6 @@ export const store = configureStore({
         order: orderReducer,
         login: loginReducer,
         products: productsReducer,
+        summary: summaryReducer,
     },
 })

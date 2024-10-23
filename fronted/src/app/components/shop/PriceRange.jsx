@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { IoIosArrowForward } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMinRange } from '../../redux/features/priceSlices'
-import { loadProducts } from '../../redux/features/productsSlices'
 
 const PriceRange = () => {
     const [expand, setExpand] = useState(false)
@@ -18,9 +17,7 @@ const PriceRange = () => {
     const handleMinRange = (e) => {
         dispatch(setMinRange(Number(e.target.value)));
     }
-    useEffect(() => {
-      dispatch(loadProducts());
-  }, [dispatch]);
+
   return (
     <div>
       <div className={`px-8 `}>

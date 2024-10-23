@@ -5,7 +5,7 @@ import { IoIosCart } from 'react-icons/io'
 import { FaHeartCircleCheck } from 'react-icons/fa6'
 import { ImEye } from 'react-icons/im'
 import '../../../App.css'
-import { Navigate, useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 
 const ItemListing = ({ img, name, price, id, handleToast }) => {
   const dispatch = useDispatch()
@@ -14,9 +14,10 @@ const ItemListing = ({ img, name, price, id, handleToast }) => {
   const priceStr = Number(price).toLocaleString()
   const handleViewDetail = () => {
     navigate(`/shop/${id}`)
+   
   }
   const handleAddToCart = () => {
-    dispatch(addtoCart({ id: id, name, price: Number(price.replace(/,/g, '')), img, qty: 1 }));
+    dispatch(addtoCart({ id: id, name, price: Number(price), img, qty: 1 }));
     handleToast(name)
     // console.log(handleToast);
     

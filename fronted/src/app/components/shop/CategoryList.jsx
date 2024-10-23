@@ -3,12 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCategory } from '../../redux/features/categorySlices'
 import { IoIosArrowForward } from 'react-icons/io'
-import { loadProducts } from '../../redux/features/productsSlices'
 
-const CategoryList = () => {
+const CategoryList = ({products}) => {
   const [expand, setExpand] = useState(false);
   const [categories, setCategories] = useState([])
-  const products = useSelector((state)=>state.products.products)
   const dispatch = useDispatch()
 
   const handleExpand = () => {
@@ -21,10 +19,9 @@ const CategoryList = () => {
   }
   useEffect(() => {
     listUniqueCategories()
-  }, [])
-  useEffect(() => {
-    dispatch(loadProducts());
-}, [dispatch]);
+  }, [products])
+  
+
   return (
     <div>
       <div className='px-3'>
