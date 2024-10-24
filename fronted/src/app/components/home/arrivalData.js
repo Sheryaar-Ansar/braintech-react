@@ -2,23 +2,18 @@
 
 export const arrivalData = [
     {
-        id: 10,
-        name: 'A4tech Bloody G220 Wired Gaming Headset',
-        price: '15,611',
-        desc: 'A4tech Bloody Hand Ghost G220 Wired Gaming Headset 7.1 Channel Headset Esports Games Suitable For Wearing Comfortably',
+        id: 1,
+        name: 'HyperX Cloud II - Gaming Headset',
+        price: '9,999',
         images: [
-            'https://ae-pic-a1.aliexpress-media.com/kf/S331b73f5b8904629bd35e28526994ce1y/A4tech-Bloody-Hand-Ghost-G220-Wired-Gaming-Headset-7-1-Channel-Headset-Esports-Games-Suitable-For.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S95fb33a96e5d4b41bf212a3c1b2ce7152/A4tech-Bloody-Hand-Ghost-G220-Wired-Gaming-Headset-7-1-Channel-Headset-Esports-Games-Suitable-For.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S756c8a76e2a94b7db3de5353e532a5d3w/A4tech-Bloody-Hand-Ghost-G220-Wired-Gaming-Headset-7-1-Channel-Headset-Esports-Games-Suitable-For.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/Se92f74b095cb4dcab29f43597d09d4fde/A4tech-Bloody-Hand-Ghost-G220-Wired-Gaming-Headset-7-1-Channel-Headset-Esports-Games-Suitable-For.jpg_.webp',
+            'https://img.drz.lazcdn.com/static/pk/p/81fca3d5c42644e280919da916c5f339.jpg_720x720q80.jpg_.webp'
         ],
         category: 'Headphones'
     },
     {
-        id:14,
+        id:2,
         name: 'HiBy Loki PU+PEEK',
         price: '5,284',
-        desc: 'HiBy Loki PU+PEEK Composite Diaphragm Dynamic Driver Earphone HiFi Audio in-ear IEM High Quality Deep Bass For Music Gaming DAP',
         images: [
             'https://ae-pic-a1.aliexpress-media.com/kf/S880c1c20afc3475880cfb49c8f89307cM/HiBy-Loki-PU-PEEK-Composite-Diaphragm-Dynamic-Driver-Earphone-HiFi-Audio-in-ear-IEM-High-Quality.jpg_.webp',
             'https://ae-pic-a1.aliexpress-media.com/kf/S2bcb00424fce40d0ac234ad40f2f1802x/HiBy-Loki-PU-PEEK-Composite-Diaphragm-Dynamic-Driver-Earphone-HiFi-Audio-in-ear-IEM-High-Quality.jpg_.webp',
@@ -28,15 +23,11 @@ export const arrivalData = [
         category: 'Earphones'
     },
     {
-        id:65,
-        name: 'Voice Recorder Pen Audio Recorder Gadgets',
-        price: '5,204',
-        desc: 'Voice Recorder Pen Audio Recorder Gadgets Listening Device Professional Small Recording for Kindergarten Portable Electronics',
+        id:3,
+        name: 'Razer BlackShark V2 Pro Wireless Esports Headset',
+        price: '50,000',
         images: [
-            'https://ae-pic-a1.aliexpress-media.com/kf/S8f4528d3d91146d8a14a13a284697328r/Voice-Recorder-Pen-Audio-Recorder-Gadgets-Listening-Device-Professional-Small-Recording-for-Kindergarten-Portable-Electronics.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S154853a0d451408d87b3dd905dac071ds/Voice-Recorder-Pen-Audio-Recorder-Gadgets-Listening-Device-Professional-Small-Recording-for-Kindergarten-Portable-Electronics.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/Sd5b5d53e327b4ef3899c69e7f4ab426ey/Voice-Recorder-Pen-Audio-Recorder-Gadgets-Listening-Device-Professional-Small-Recording-for-Kindergarten-Portable-Electronics.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S10533677f85b448aba1224b4b66506b14.jpg_640x640.jpg_.webp',
+            'https://www.czone.com.pk/images/thumbnails-large/54-czone.com.pk-1540-12762-291222081031.jpg'
         ],
         category: 'Gadgets'
 
@@ -69,16 +60,12 @@ export const arrivalData = [
     },
     {
         id:41,
-        name: 'BYONE Dual Screen Gaming Laptop',
-        price: '207,026',
-        desc: 'BYONE Dual Screen Gaming Laptop Intel Core i9-10885H 14 Inch Touch Screen Laptop 16GB RAM 2TB SSD',
+        name: 'Razer Barracuda X',
+        price: '14,999',
         images: [
-            'https://ae-pic-a1.aliexpress-media.com/kf/Sfa44da09233746a0b823ca51b6330377K/BYONE-Dual-Screen-Gaming-Laptop-Intel-Core-i9-10885H-16-inch-14-Inch-Touch-Screen-Laptop.png_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/Sc44a4a6137e84c4b8dc33542bf796695U/BYONE-Dual-Screen-Gaming-Laptop-Intel-Core-i9-10885H-16-inch-14-Inch-Touch-Screen-Laptop.png_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S3aadeff64b9e4a81809e77b26d67edb9T/BYONE-Dual-Screen-Gaming-Laptop-Intel-Core-i9-10885H-16-inch-14-Inch-Touch-Screen-Laptop.png_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/Se8f09d6eab65419bb453a239ccf2d09eS/BYONE-Dual-Screen-Gaming-Laptop-Intel-Core-i9-10885H-16-inch-14-Inch-Touch-Screen-Laptop.jpg_.webp',
+            'https://static3.webx.pk/files/19643/Images/razer-barracuda-x-headset-price-in-pakistan-1-19643-723185-050623051636191.jpg'
         ],
-        category: 'Laptop',
+        category: 'Headphones',
     },
     {
         id:52,
@@ -95,16 +82,12 @@ export const arrivalData = [
     },
     {
         id:61,
-        name: '14-in-1 EDC Multitool Scissors',
-        price: '4,705',
-        desc: '14-in-1 EDC Multitool Scissors Outdoor Camping Gear and Equipment Gadgets For Men Portable Survival Tools with Knife Screwdriver',
+        name: 'ASTRO Gaming A20 Wireless Headset Gen 2',
+        price: '21,190',
         images: [
-            'https://ae-pic-a1.aliexpress-media.com/kf/S1df8c13d9242401c952fb61a3f60a3e2c/14-in-1-EDC-Multitool-Scissors-Outdoor-Camping-Gear-and-Equipment-Gadgets-For-Men-Portable-Survival.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S02e2da58a7d54055873f65426f7c4ccbs/14-in-1-EDC-Multitool-Scissors-Outdoor-Camping-Gear-and-Equipment-Gadgets-For-Men-Portable-Survival.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/Se661a16b560a4b60b42acd0faca7d607y/14-in-1-EDC-Multitool-Scissors-Outdoor-Camping-Gear-and-Equipment-Gadgets-For-Men-Portable-Survival.jpg_.webp',
-            'https://ae-pic-a1.aliexpress-media.com/kf/S304f76daf7bd4d099c383704b9db122fa/14-in-1-EDC-Multitool-Scissors-Outdoor-Camping-Gear-and-Equipment-Gadgets-For-Men-Portable-Survival.jpg_.webp',
+            'https://m.media-amazon.com/images/I/61OGpwDEURL._AC_SX466_.jpg'
         ],
-        category: 'Gadgets',
+        category: 'Headphones',
 
     },
     {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import emailjs from 'emailjs-com';
 import { GiShoppingCart } from 'react-icons/gi'
 import { IoIosArrowForward } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
@@ -55,98 +56,162 @@ const Checkout = () => {
     const handlePaymentExpand = () => {
         setPaymentExpand(!paymentExpand)
     }
+    const orderDetails = `${info.name} - ${info.address} - ${info.city} - ${info.number} - ${cartItems.map((item)=> `${item.name} -${item.price}x${item.qty} PKR`)} (${totalPrice})`
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         await validationSchema.validate(info, { abortEarly: false })
+    //         console.log('data : ', info);
+    //         dispatch(addDetails({ name: info.name, email: info.email, address: info.address, city: info.city, gateway: info.interest }))
+    //         const templateParams = {
+    //             buyer_email : info.email,
+    //             buyer_detail: orderDetails,
+    //         }
+    //         // Send the email using EmailJS
+            
+    //         emailjs.send('service_7n8d4bg', 'template_yajvcah', templateParams)
+    //             .then((result) => {
+    //                 console.log('Email successfully sent:', result.text);
+    //             }, (error) => {
+    //                 console.log('Error sending email:', error.text);
+    //             });
+        
+    //     orderPlace()
+    //     navigate('/order-placement')
+
+    // } catch (error) {
+    //     const newErrors = {};
+    //     error.inner.forEach((err) => {
+    //         newErrors[err.path] = err.message
+    //     })
+    //     setShowError(newErrors)
+    //     setShippingExpand(true)
+    //     setPaymentExpand(true)
+    // }
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
         try {
-            await validationSchema.validate(info, { abortEarly: false })
-            console.log('data : ', info);
-            dispatch(addDetails({ name: info.name, email: info.email, address: info.address, city: info.city, gateway: info.interest }))
-            orderPlace()
-            navigate('/order-placement')
-
+            // Validate the form data using Yup schema
+            await validationSchema.validate(info, { abortEarly: false });
+    
+            console.log('data : ', info); // Check if the form data is correct
+            dispatch(addDetails({ name: info.name, email: info.email, address: info.address, city: info.city, gateway: info.interest }));
+    
+            // Prepare order details and email parameters
+            const orderDetails = `Name: ${info.name} - Address:  ${info.address} - City:  ${info.city} - Number: ${info.number} `;
+            const productsCart = `Products: ${cartItems.map((item) => `${item.name} - ${item.price} x ${item.qty} PKR`).join(', ')}`
+            const total = `Total: ${totalPrice} PKR`
+            const templateParams = {
+                buyer_email: info.email,  // Buyer email
+                buyer_detail: orderDetails,  // Order details string
+                buyer_cart: productsCart,
+                buyer_total: total,
+            };
+    
+            // Send email using EmailJS
+            await emailjs.send('service_7n8d4bg', 'template_yajvcah', templateParams, 'fDZe85OfABP60cV2D')
+                .then((result) => {
+                    console.log('Email successfully sent:', result.text);
+                })
+                .catch((error) => {
+                    console.error('Error sending email:', error);  // Log the error for debugging
+                });
+    
+            // Call orderPlace function to complete the order
+            orderPlace();
+            navigate('/order-placement');  // Redirect to order placement page
+    
         } catch (error) {
-            const newErrors = {};
-            error.inner.forEach((err) => {
-                newErrors[err.path] = err.message
-            })
-            setShowError(newErrors)
-            setShippingExpand(true)
-            setPaymentExpand(true)
+            // Handle validation errors
+            if (error.inner) {
+                const newErrors = {};
+                error.inner.forEach((err) => {
+                    newErrors[err.path] = err.message;
+                });
+                setShowError(newErrors);  // Set validation error messages
+                setShippingExpand(true);  // Expand the relevant sections for better UX
+                setPaymentExpand(true);
+            } else {
+                console.error('Unexpected error:', error);  // Log unexpected errors
+            }
         }
-        // console.log('Errors: ', showError);
+    
+    
+    // console.log('Errors: ', showError);
 
-    }
+}
 
 
-    return (
-        <div className={`mt-[70px] pt-[100px] min-h-screen mx-auto ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
-            <div >
-                {cartItems.length === 0 ? (
-                    <div className={`flex justify-center items-center flex-col ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}><GiShoppingCart className='text-2xl' />
-                        <h1>Your Cart Is Empty</h1>
-                        <button onClick={() => navigate('/shop')} className='w-[250px] h-[45px] bg-blue-300 text-md uppercase mt-3 hover:border hover:border-blue-300 hover:shadow-md hover:shadow-blue-400 transition-all duration-300 ease-in-out'>Continue Shopping</button>
+return (
+    <div className={`mt-[70px] pt-[100px] min-h-screen mx-auto ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}>
+        <div >
+            {cartItems.length === 0 ? (
+                <div className={`flex justify-center items-center flex-col ${mode ? 'bg-gray-900' : 'bg-gray-200'}`}><GiShoppingCart className='text-2xl' />
+                    <h1>Your Cart Is Empty</h1>
+                    <button onClick={() => navigate('/shop')} className='w-[250px] h-[45px] bg-blue-300 text-md uppercase mt-3 hover:border hover:border-blue-300 hover:shadow-md hover:shadow-blue-400 transition-all duration-300 ease-in-out'>Continue Shopping</button>
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit} className='block md:flex justify-around w-full'>
+                    <div className={` md:w-[50%] ${mode ? 'bg-gray-800' : 'bg-gray-300'} p-3 rounded-lg border`}>
+                        <h1 className='text-3xl uppercase font-bold font-sans'>Checkout</h1>
+                        <hr className='my-3' />
+                        <div className='ml-5 mt-8'>
+                            <div className='border p-3'>
+                                <h1 onClick={handleBillingExpand} className='flex items-center cursor-pointer'>Billing Information <IoIosArrowForward className={`${billingExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
+                                <div className={`${billingExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
+                                    <label htmlFor="name">Name <input type="text" name='name' onChange={handleOnChange} value={info.name} placeholder='Enter Name' id='name' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} /> {showError.name && <span className='text-red-500'>{showError.name}</span>}</label>
+                                    <label className='block mt-3' htmlFor="email">Email <input type="email" name='email' onChange={handleOnChange} value={info.email} placeholder='Enter Email' id='email' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.email && <span className='text-red-500'>{showError.email}</span>}</label>
+                                    <label htmlFor="phone" className='mt-3 block'>Phone <input type="number" name='number' onChange={handleOnChange} value={info.number} placeholder='Enter Phone +92' id='phone' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.number && <span className='text-red-500'>{showError.number}</span>}</label>
+                                </div>
+                            </div>
+                            <div className='mt-6 border p-3'>
+                                <h1 onClick={handleShippingExpand} className='flex items-center cursor-pointer'>Shipping Information <IoIosArrowForward className={`${shippingExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
+                                <div className={`${shippingExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
+
+                                    <label htmlFor="address">Address <input type="text" name='address' onChange={handleOnChange} value={info.address} placeholder='Enter Address' id='address' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.address && <span className='text-red-500'>{showError.address}</span>}</label>
+                                    <label className='block mt-3' htmlFor="city">City <input type="text" name='city' onChange={handleOnChange} value={info.city} placeholder='Enter City Name' id='city' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.city && <span className='text-red-500'>{showError.city}</span>}</label>
+                                    <label htmlFor="zip" className='block mt-3'>Zip Code <input type="text" maxLength={7} name='zip' onChange={handleOnChange} value={info.zip} placeholder='Enter Zip Code' id='zip' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.zip && <span className='text-red-500'>{showError.zip}</span>}</label>
+                                </div>
+                            </div>
+                            <div className='mt-6 border p-3 mb-6'>
+                                <h1 onClick={handlePaymentExpand} className='flex items-center cursor-pointer'>Payment Method <IoIosArrowForward className={`${paymentExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
+                                <div className={`${paymentExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
+                                    <label htmlFor="interest" className='flex items-center'><input checked readOnly name='interest' value={info.interest} type="radio" id='interest' className='ml-3' />Cash on Delivery</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                ) : (
-                    <form onSubmit={handleSubmit} className='block md:flex justify-around w-full'>
-                        <div className={` md:w-[50%] ${mode ? 'bg-gray-800' : 'bg-gray-300'} p-3 rounded-lg border`}>
-                            <h1 className='text-3xl uppercase font-bold font-sans'>Checkout</h1>
+                    <div>
+                        <div className={` mt-5 md:mt-0 ${mode ? 'bg-gray-800' : 'bg-gray-300'} border p-3 rounded-xl transition-all duration-500`}>
+                            <h1 className='text-2xl'>Order Summary</h1>
                             <hr className='my-3' />
-                            <div className='ml-5 mt-8'>
-                                <div className='border p-3'>
-                                    <h1 onClick={handleBillingExpand} className='flex items-center cursor-pointer'>Billing Information <IoIosArrowForward className={`${billingExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
-                                    <div className={`${billingExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
-                                        <label htmlFor="name">Name <input type="text" name='name' onChange={handleOnChange} value={info.name} placeholder='Enter Name' id='name' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} /> {showError.name && <span className='text-red-500'>{showError.name}</span>}</label>
-                                        <label className='block mt-3' htmlFor="email">Email <input type="email" name='email' onChange={handleOnChange} value={info.email} placeholder='Enter Email' id='email' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.email && <span className='text-red-500'>{showError.email}</span>}</label>
-                                        <label htmlFor="phone" className='mt-3 block'>Phone <input type="number" name='number' onChange={handleOnChange} value={info.number} placeholder='Enter Phone +92' id='phone' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.number && <span className='text-red-500'>{showError.number}</span>}</label>
-                                    </div>
-                                </div>
-                                <div className='mt-6 border p-3'>
-                                    <h1 onClick={handleShippingExpand} className='flex items-center cursor-pointer'>Shipping Information <IoIosArrowForward className={`${shippingExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
-                                    <div className={`${shippingExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
-
-                                        <label htmlFor="address">Address <input type="text" name='address' onChange={handleOnChange} value={info.address} placeholder='Enter Address' id='address' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.address && <span className='text-red-500'>{showError.address}</span>}</label>
-                                        <label className='block mt-3' htmlFor="city">City <input type="text" name='city' onChange={handleOnChange} value={info.city} placeholder='Enter City Name' id='city' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.city && <span className='text-red-500'>{showError.city}</span>}</label>
-                                        <label htmlFor="zip" className='block mt-3'>Zip Code <input type="text" maxLength={7} name='zip' onChange={handleOnChange} value={info.zip} placeholder='Enter Zip Code' id='zip' className={`block border p-1 ${mode ? 'bg-gray-700' : ''} transition-all duration-300`} />{showError.zip && <span className='text-red-500'>{showError.zip}</span>}</label>
-                                    </div>
-                                </div>
-                                <div className='mt-6 border p-3 mb-6'>
-                                    <h1 onClick={handlePaymentExpand} className='flex items-center cursor-pointer'>Payment Method <IoIosArrowForward className={`${paymentExpand ? 'rotate-90' : 'rotate-0'} transition-all ease-linear ml-3`} /></h1>
-                                    <div className={`${paymentExpand ? 'max-h-[500px]' : 'max-h-[0px]'} overflow-y-hidden transition-all duration-300 mt-3`}>
-                                        <label htmlFor="interest" className='flex items-center'><input checked readOnly name='interest' value={info.interest} type="radio" id='interest' className='ml-3' />Cash on Delivery</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className={` mt-5 md:mt-0 ${mode ? 'bg-gray-800' : 'bg-gray-300'} border p-3 rounded-xl transition-all duration-500`}>
-                                <h1 className='text-2xl'>Order Summary</h1>
-                                <hr className='my-3' />
-                                <div className=''>
-                                    {cartItems.map((item) => (
-                                        <div key={item.id}>
-                                            <div className='flex items-center'>
-                                                <img src={item.img} className='w-[80px] h-[80px] rounded-full' />
-                                                <div className='ml-2'>
-                                                    <h1 className='text-md md:text-lg'>{item.name}</h1>
-                                                    <p className='mt-1 text-sm text-blue-400'>PKR {item.price.toLocaleString()} x {item.qty}</p>
-                                                </div>
+                            <div className=''>
+                                {cartItems.map((item) => (
+                                    <div key={item.id}>
+                                        <div className='flex items-center'>
+                                            <img src={item.img} className='w-[80px] h-[80px] rounded-full' />
+                                            <div className='ml-2'>
+                                                <h1 className='text-md md:text-lg'>{item.name}</h1>
+                                                <p className='mt-1 text-sm text-blue-400'>PKR {item.price.toLocaleString()} x {item.qty}</p>
                                             </div>
-                                            <hr className='my-3' />
                                         </div>
-                                    ))}
-                                </div>
-                                <div>
-                                    <p className='font-bold'>Total Price: <span className='font-normal'>{totalPrice.toLocaleString()} PKR</span></p>
-                                    <button type='submit' className='h-10 w-full bg-blue-400 border rounded-lg my-3 hover:shadow-md hover:shadow-blue-500 hover:border-blue-400 transition-all duration-300 ease-out'>Place Order</button>
-                                </div>
+                                        <hr className='my-3' />
+                                    </div>
+                                ))}
+                            </div>
+                            <div>
+                                <p className='font-bold'>Total Price: <span className='font-normal'>{totalPrice.toLocaleString()} PKR</span></p>
+                                <button type='submit' className='h-10 w-full bg-blue-400 border rounded-lg my-3 hover:shadow-md hover:shadow-blue-500 hover:border-blue-400 transition-all duration-300 ease-out'>Place Order</button>
                             </div>
                         </div>
-                    </form>
-                )}
+                    </div>
+                </form>
+            )}
 
-            </div>
         </div>
-    )
+    </div>
+)
 }
 
 export default Checkout

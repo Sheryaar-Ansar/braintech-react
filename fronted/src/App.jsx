@@ -14,10 +14,11 @@ import { AuthContext } from './app/context/AuthContext'
 import ProtectedRoute from './app/PrivateRoute/ProtectedRoute'
 import Login from './app/pages/Login'
 import Dashboard from './app/pages/Dashboard'
+import Whatsapp from './app/components/Whatsapp'
 
 function App() {
   const mode = useSelector((state) => state.mode.mode)
-  const {isAuthenticated} = useSelector((state) => state.login)
+  const { isAuthenticated } = useSelector((state) => state.login)
   return (
     <div className={`${mode ? 'transition-all duration-500 bg-black text-white' : 'transition-all duration-500 bg-white text-black'}`}>
       <Toaster
@@ -25,25 +26,28 @@ function App() {
         reverseOrder={false}
       />
       <Navbar />
-      {!isAuthenticated ? 
-        <AuthContext>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/shop' element={<Shop />} />
-          <Route path='/shop/:id' element={<ProductDetail />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/proceed-to-checkout' element={<Checkout />} />
-          <Route path='/order-placement' element=
-            {<ProtectedRoute>
-              <OrderPlacement />
-            </ProtectedRoute>} />
-            <Route path='/hasnainweb' element={<Login />} />
-        </Routes>
-      </AuthContext>
-      :
-          <Dashboard/>
+      {!isAuthenticated ?
+        <>
+          <Whatsapp />
+          <AuthContext>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/shop' element={<Shop />} />
+              <Route path='/shop/:id' element={<ProductDetail />} />
+              <Route path='/contact' element={<Contact />} />
+              <Route path='/proceed-to-checkout' element={<Checkout />} />
+              <Route path='/order-placement' element=
+                {<ProtectedRoute>
+                  <OrderPlacement />
+                </ProtectedRoute>} />
+              <Route path='/hasnainweb' element={<Login />} />
+            </Routes>
+          </AuthContext>
+        </>
+        :
+        <Dashboard />
       }
-      
+
       <Footer />
     </div>
   )
